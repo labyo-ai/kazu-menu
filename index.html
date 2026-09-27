@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#272324">
+<meta name="robots" content="noindex,nofollow">
+<meta name="apple-mobile-web-app-title" content="منيو كازو">
+<title>منيو كازو — مراجعة وإكمال</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#272324; --ink2:#5b5350; --muted:#8a817c; --line:#e9e1d8; --bg:#f6f2ed; --card:#fff;
+  --beige:#E4D8CC; --beige2:#f1e9e0; --gold:#b08d57;
+  --green:#1f8a5b; --green-bg:#e8f6ef; --amber:#c47f12; --amber-bg:#fdf3e1; --grey:#8d8d8d; --grey-bg:#f0efee;
+  --red:#b3261e; --radius:18px; --shadow:0 1px 2px rgba(39,35,36,.06),0 4px 16px rgba(39,35,36,.06);
+  --hdr:0px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:auto}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Tajawal','IBM Plex Sans Arabic','Noto Sans Arabic','Segoe UI',Tahoma,system-ui,sans-serif;font-size:16px;line-height:1.55;padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+.wrap{max-width:760px;margin:0 auto;padding:0 14px}
+/* header */
+.hdr{position:sticky;top:0;z-index:30;background:var(--ink);color:#fff;box-shadow:0 2px 12px rgba(0,0,0,.18)}
+.hdr .wrap{padding-top:calc(10px + env(safe-area-inset-top));padding-bottom:8px}
+.hrow{display:flex;align-items:center;gap:10px}
+.logo{width:38px;height:38px;border-radius:12px;background:var(--beige);color:var(--ink);display:grid;place-items:center;font-weight:800;font-size:18px;flex:none}
+.htitle{flex:1;min-width:0}
+.htitle h1{margin:0;font-size:18px;font-weight:800;letter-spacing:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.saved{font-size:12px;color:#cfc4b8;display:flex;align-items:center;gap:5px}
+.saved .dotok{width:7px;height:7px;border-radius:50%;background:#5fd39a;display:inline-block}
+.saved.err{color:#ffb4ab}.saved.err .dotok{background:#ff6b5e}
+.prog{margin-top:9px;display:flex;align-items:center;gap:10px}
+.bar{flex:1;height:10px;border-radius:99px;background:rgba(255,255,255,.14);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#5fd39a,#1f8a5b);border-radius:99px;transition:width .35s}
+.progtxt{font-size:14px;font-weight:700;white-space:nowrap;color:#fff}
+.tabs,.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:9px 0 2px}
+.tabs::-webkit-scrollbar,.chips::-webkit-scrollbar{display:none}
+.tab{flex:none;border:1px solid rgba(255,255,255,.18);background:transparent;color:#f3ece5;border-radius:99px;padding:7px 12px;font-size:14px;font-weight:500;min-height:38px}
+.tab b{font-weight:700;opacity:.75;margin-inline-start:4px}
+.tab.on{background:var(--beige);color:var(--ink);border-color:var(--beige)}
+.chips{padding-top:6px;padding-bottom:4px}
+.chip{flex:none;border:0;background:rgba(255,255,255,.08);color:#e9dfd5;border-radius:10px;padding:6px 12px;font-size:13.5px;min-height:34px}
+.chip.on{background:#fff;color:var(--ink);font-weight:700}
+/* intro */
+.intro{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px 16px;margin:14px 0 10px}
+.intro p{margin:0 0 12px;color:var(--ink2);font-size:15px}
+.search{position:relative}
+.search input{width:100%;border:1.5px solid var(--line);background:var(--bg);border-radius:14px;padding:12px 44px 12px 14px;font-size:16px;outline:none;min-height:50px}
+.search input:focus{border-color:var(--gold);background:#fff}
+.search svg{position:absolute;right:14px;top:50%;transform:translateY(-50%);width:20px;height:20px;color:var(--muted)}
+.tools{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.btn-ghost{border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:9px 14px;font-size:14px;font-weight:500;min-height:44px;display:inline-flex;align-items:center;gap:6px}
+.btn-ghost:active{background:var(--beige2)}
+/* category */
+.cat{margin-top:18px}
+.cat h2{margin:0 4px 10px;font-size:17px;font-weight:800;display:flex;align-items:baseline;gap:8px;scroll-margin-top:calc(var(--hdr) + 10px)}
+.cat h2 small{font-weight:500;color:var(--muted);font-size:13px}
+.cat h2 .menu{font-size:12px;font-weight:700;color:var(--gold);background:var(--beige2);border-radius:6px;padding:1px 7px}
+.cards{display:flex;flex-direction:column;gap:10px}
+/* card */
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1.5px solid transparent;overflow:hidden;transition:border-color .2s,background .2s}
+.card.done{border-color:#9fdcbf;background:linear-gradient(0deg,#fff,#fff) padding-box}
+.card.done .head{background:var(--green-bg)}
+.card.paused{border-color:#f0cf8f}
+.card.paused .head{background:var(--amber-bg)}
+.card.cancelled{background:#faf9f8}
+.card.cancelled .head{background:var(--grey-bg)}
+.card.cancelled .n-ar,.card.cancelled .n-en{text-decoration:line-through;color:var(--grey)}
+.card.cancelled .thumb img{filter:grayscale(1);opacity:.6}
+.head{display:flex;gap:12px;align-items:center;padding:10px;cursor:pointer;min-height:92px}
+.thumb{width:76px;height:76px;border-radius:14px;overflow:hidden;background:var(--beige2);flex:none;position:relative;border:0;padding:0}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.info{flex:1;min-width:0}
+.n-ar{font-weight:800;font-size:16.5px;line-height:1.35}
+.n-en{font-size:13.5px;color:var(--ink2);text-align:right;line-height:1.35;margin-top:1px}
+.meta{font-size:13.5px;color:var(--muted);margin-top:3px;display:flex;flex-wrap:wrap;gap:4px 6px;align-items:center}
+.price{font-weight:800;color:var(--ink);font-size:14.5px}
+.badges{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
+.badge{font-size:12px;font-weight:700;border-radius:7px;padding:2px 8px;line-height:1.6}
+.b-done{background:var(--green);color:#fff}
+.b-paused{background:var(--amber);color:#fff}
+.b-cancel{background:var(--grey);color:#fff}
+.b-soft{background:var(--beige2);color:var(--ink2);font-weight:500}
+.desc-prev{font-size:13px;color:var(--ink2);margin-top:4px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+.chev{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:var(--muted);transition:transform .2s;font-size:22px;background:rgba(0,0,0,.03)}
+.card.open .chev{transform:rotate(90deg)}
+.body{padding:4px 14px 16px;border-top:1px solid var(--line)}
+.fld{display:block;margin-top:14px}
+.lbl{display:flex;align-items:center;justify-content:space-between;gap:8px;font-weight:700;font-size:15px;margin-bottom:6px}
+.lbl small{font-weight:500;color:var(--muted);font-size:12.5px}
+textarea,.inp{width:100%;border:1.5px solid var(--line);border-radius:14px;padding:12px 13px;font-size:16px;background:#fff;outline:none;resize:vertical;min-height:50px;line-height:1.55}
+textarea{min-height:92px}
+textarea:focus,.inp:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(176,141,87,.15)}
+[dir=ltr].inp,textarea[dir=ltr]{text-align:left;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+.hint{font-size:12.5px;color:var(--muted);margin-top:5px;min-height:18px}
+.hint.machine{color:#6b5a2e}.hint.err{color:var(--red)}.hint.busy{color:var(--gold)}
+.btn-sm{border:1.5px solid var(--gold);color:#7a5f33;background:#fffaf2;border-radius:10px;padding:5px 14px;font-size:14px;font-weight:700;min-height:38px}
+.btn-sm:disabled{opacity:.55}
+.linkbtn{border:0;background:none;color:#7a5f33;font-size:14px;font-weight:700;padding:10px 0 2px;text-decoration:underline;text-underline-offset:3px;min-height:40px}
+.namefields{background:var(--beige2);border-radius:14px;padding:4px 12px 10px;margin-top:6px}
+.namefields .fld{margin-top:10px}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:var(--bg);padding:5px;border-radius:16px}
+.seg button{border:0;border-radius:12px;background:transparent;padding:10px 4px;font-weight:700;font-size:15px;min-height:52px;color:var(--ink2)}
+.seg button.on[data-v=active]{background:var(--green);color:#fff;box-shadow:0 2px 8px rgba(31,138,91,.3)}
+.seg button.on[data-v=cancelled]{background:#6f6f6f;color:#fff}
+.seg button.on[data-v=paused]{background:var(--amber);color:#fff;box-shadow:0 2px 8px rgba(196,127,18,.3)}
+.reasons{display:flex;flex-wrap:wrap;gap:8px}
+.reason{border:1.5px solid #ecd3a4;background:#fff;border-radius:99px;padding:8px 14px;font-size:14.5px;min-height:44px;font-weight:500}
+.reason.on{background:var(--amber);border-color:var(--amber);color:#fff;font-weight:700}
+.pausebox{background:var(--amber-bg);border-radius:14px;padding:4px 12px 12px;margin-top:10px}
+.btn-done{margin-top:18px;width:100%;border:0;border-radius:16px;background:var(--ink);color:#fff;font-weight:800;font-size:18px;min-height:56px;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-done.is-done{background:var(--green-bg);color:var(--green);border:1.5px solid #9fdcbf}
+.empty{text-align:center;color:var(--muted);padding:40px 10px;display:none}
+/* bottom bar */
+.bottom{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:10px 0 calc(10px + env(safe-area-inset-bottom));transition:transform .2s}
+.bottom .wrap{display:flex;align-items:center;gap:12px}
+.bsum{flex:1;font-size:13.5px;color:var(--ink2);line-height:1.4}
+.bsum b{color:var(--ink);font-size:15px}
+.btn-send{border:0;border-radius:16px;background:var(--green);color:#fff;font-weight:800;font-size:17px;min-height:54px;padding:0 22px;box-shadow:0 4px 14px rgba(31,138,91,.35);display:flex;align-items:center;gap:8px}
+body.typing .bottom{transform:translateY(110%)}
+/* modal, lightbox, toast */
+.ov{position:fixed;inset:0;z-index:60;background:rgba(20,16,15,.55);display:none;align-items:flex-end;justify-content:center;padding:0}
+.ov.show{display:flex}
+.modal{background:#fff;width:100%;max-width:520px;border-radius:24px 24px 0 0;padding:22px 18px calc(18px + env(safe-area-inset-bottom));box-shadow:0 -8px 30px rgba(0,0,0,.2);animation:up .22s ease-out;max-height:88vh;overflow:auto}
+@media (min-width:640px){.ov{align-items:center}.modal{border-radius:24px}}
+@keyframes up{from{transform:translateY(40px);opacity:.4}to{transform:none;opacity:1}}
+.modal h3{margin:0 0 8px;font-size:20px;font-weight:800}
+.modal .mb{color:var(--ink2);font-size:15.5px}
+.modal .mb ol{padding-inline-start:20px;margin:8px 0}
+.modal .mb li{margin:4px 0}
+.mbtns{display:flex;flex-direction:column;gap:8px;margin-top:18px}
+.mbtn{border:0;border-radius:14px;min-height:52px;font-weight:800;font-size:16.5px;background:var(--bg);color:var(--ink)}
+.mbtn.pri{background:var(--green);color:#fff}
+.mbtn.dark{background:var(--ink);color:#fff}
+.lb{position:fixed;inset:0;z-index:70;background:rgba(10,8,8,.92);display:none;align-items:center;justify-content:center;flex-direction:column;padding:20px}
+.lb.show{display:flex}
+.lb img{max-width:100%;max-height:78vh;border-radius:14px;object-fit:contain;background:#222}
+.lb .cap{color:#fff;margin-top:12px;font-weight:700;text-align:center}
+.lb .x{position:absolute;top:calc(12px + env(safe-area-inset-top));left:12px;width:48px;height:48px;border-radius:50%;border:0;background:rgba(255,255,255,.15);color:#fff;font-size:26px}
+.toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:11px 18px;border-radius:14px;font-size:15px;z-index:80;opacity:0;pointer-events:none;transition:.25s;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.warnbar{background:#fdecea;color:var(--red);font-size:13.5px;border-radius:12px;padding:8px 12px;margin-top:10px;display:none}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<header class="hdr" id="hdr">
+  <div class="wrap">
+    <div class="hrow">
+      <div class="logo">K</div>
+      <div class="htitle">
+        <h1>منيو كازو — مراجعة وإكمال</h1>
+        <div class="saved" id="saved"><span class="dotok"></span><span id="savedTxt">جاهز</span></div>
+      </div>
+    </div>
+    <div class="prog"><div class="bar"><i id="barFill"></i></div><div class="progtxt" id="progTxt">تم 0 من 0</div></div>
+    <nav class="tabs" id="tabs" aria-label="تصفية"></nav>
+    <nav class="chips" id="chips" aria-label="الأقسام"></nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="intro">
+    <p>اضغط على كل صنف، واكتب وصفه بالعربي، واختر حالته، وبعدين اضغط «تم ✓». كل شي ينحفظ تلقائياً على جهازك.</p>
+    <div class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input type="search" id="q" placeholder="ابحث عن صنف… (عربي أو إنجليزي)" autocomplete="off" enterkeyhint="search">
+    </div>
+    <div class="tools">
+      <button class="btn-ghost" id="btnBackup" type="button">💾 حفظ نسخة احتياطية</button>
+      <button class="btn-ghost" id="btnRestore" type="button">📂 استرجاع</button>
+      <input type="file" id="fileIn" accept=".json,.txt,application/json,text/plain" hidden>
+    </div>
+    <div class="warnbar" id="warnStore">الحفظ التلقائي غير متاح على هذا المتصفح. اضغط «حفظ نسخة احتياطية» من وقت لآخر حتى ما يضيع شغلك.</div>
+  </section>
+  <div id="list"></div>
+  <div class="empty" id="empty">ما في أصناف هنا 👌</div>
+</main>
+
+<div class="bottom" id="bottom">
+  <div class="wrap">
+    <div class="bsum" id="bsum"></div>
+    <button class="btn-send" id="btnSend" type="button">إرسال المنيو ➤</button>
+  </div>
+</div>
+
+<div class="ov" id="ov" role="dialog" aria-modal="true"><div class="modal" id="modal"></div></div>
+<div class="lb" id="lb"><button class="x" id="lbX" aria-label="إغلاق">×</button><img id="lbImg" alt=""><div class="cap" id="lbCap"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const DATA = {"version":"kazu-menu-2026-09-27-v1","cats":[{"en":"Breakfast Plates","ar":"أطباق الإفطار","sort":1,"menu_en":"BREAKFAST","menu_ar":"الإفطار"},{"en":"Sourdough Bread and Sandwich","ar":"خبز السوردو و سنادويش","sort":2,"menu_en":"BREAKFAST","menu_ar":"الإفطار"},{"en":"Croissants","ar":"الكرواسون","sort":3,"menu_en":"BREAKFAST","menu_ar":"الإفطار"},{"en":"Soups","ar":"الشوربات","sort":4,"menu_en":"FOOD","menu_ar":"المأكولات"},{"en":"Salads","ar":"السلطات","sort":5,"menu_en":"FOOD","menu_ar":"المأكولات"},{"en":"Appetizers","ar":"المقبلات","sort":6,"menu_en":"FOOD","menu_ar":"المأكولات"},{"en":"Fries","ar":"الفرايز","sort":7,"menu_en":"FOOD","menu_ar":"المأكولات"},{"en":"Burgers","ar":"البرجر","sort":8,"menu_en":"FOOD","menu_ar":"المأكولات"},{"en":"Chicken Steaks","ar":"ستيك الدجاج","sort":9,"menu_en":"FOOD","menu_ar":"المأكولات"},{"en":"Al - Ayoush","ar":"العيوش","sort":10,"menu_en":"FOOD","menu_ar":"المأكولات"},{"en":"Pasta","ar":"الباستا","sort":11,"menu_en":"FOOD","menu_ar":"المأكولات"},{"en":"Risotto","ar":"الريزوتو","sort":12,"menu_en":"FOOD","menu_ar":"المأكولات"},{"en":"Sweet Croissants","ar":"كرو سان حلو","sort":13,"menu_en":"DESSERT","menu_ar":"الحلو"},{"en":"Desserts & Cakes","ar":"الحلويات والكيك","sort":14,"menu_en":"DESSERT","menu_ar":"الحلو"},{"en":"Hot Coffee","ar":"القهوة الساخنة","sort":15,"menu_en":"BEVERAGE","menu_ar":"المشروبات"},{"en":"Cold Coffee","ar":"القهوة الباردة","sort":16,"menu_en":"BEVERAGE","menu_ar":"المشروبات"},{"en":"Iced Tea","ar":"الايس تي","sort":17,"menu_en":"BEVERAGE","menu_ar":"المشروبات"},{"en":"Mojito Drinks","ar":"مشروبات الموهيتو","sort":18,"menu_en":"BEVERAGE","menu_ar":"المشروبات"},{"en":"Smoothie Drinks","ar":"مشروبات السموثي","sort":19,"menu_en":"BEVERAGE","menu_ar":"المشروبات"},{"en":"Fresh Juices","ar":"العصائر الطازجة","sort":20,"menu_en":"BEVERAGE","menu_ar":"المشروبات"},{"en":"Soda Drinks","ar":"المشروبات الغازية","sort":21,"menu_en":"BEVERAGE","menu_ar":"المشروبات"}],"items":[{"id":17615,"c":0,"s":1,"en":"Foul","ar":"فول","p":"1.600","img":"https://www.ordercaptain.com/kazu/smallpics/FOUL.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/FOUL.jpg"},{"id":17616,"c":0,"s":2,"en":"Omelette (Cheese & Vegetables)","ar":"أومليت (جبنة، خضار)","p":"1.800","img":"https://www.ordercaptain.com/kazu/smallpics/CHEESE%20OMLETTE.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/CHEESE%20OMLETTE.jpg"},{"id":17618,"c":0,"s":3,"en":"Grilled Halloumi","ar":"حلوم مشوي","p":"2.200","img":"https://www.ordercaptain.com/kazu/20250614/smallpics/Halloumi%20grilled.jpg","big":"https://www.ordercaptain.com/kazu/20250614/bigpics/Halloumi%20grilled.jpg"},{"id":17619,"c":0,"s":4,"en":"Shami Fatteh","ar":"فتة شامية","p":"2.300","img":"https://www.ordercaptain.com/kazu/smallpics/FATTE.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/FATTE.jpg"},{"id":17620,"c":0,"s":5,"en":"Omelette with Brioche Bread","ar":"أومليت بخبز البريوش","p":"2.300","img":"https://www.ordercaptain.com/kazu/smallpics/GARDEN%20OMLETTE.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/GARDEN%20OMLETTE.jpg"},{"id":17621,"c":0,"s":6,"en":"Mixed Falafel","ar":"فلافل مكس","p":"2.500","img":"https://www.ordercaptain.com/kazu/smallpics/MIX%20FALAFEL.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/MIX%20FALAFEL.jpg"},{"id":17622,"c":0,"s":7,"en":"Chicken Hash","ar":"حمسة دجاج","p":"2.500","img":"https://www.ordercaptain.com/kazu/smallpics/HAMSAT%20CHICKEN.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/HAMSAT%20CHICKEN.jpg"},{"id":17623,"c":0,"s":8,"en":"Meat Hash with Potatoes","ar":"حمسة لحم مع بطاطا","p":"2.500","img":"https://www.ordercaptain.com/kazu/smallpics/HAMSAT%20LAHEM.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/HAMSAT%20LAHEM.jpg"},{"id":17624,"c":0,"s":9,"en":"Hummus with Meat","ar":"حمص بالحم","p":"2.700","img":"https://www.ordercaptain.com/kazu/smallpics/HUMMUS.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/HUMMUS.jpg"},{"id":17625,"c":0,"s":10,"en":"Kazou Shakshuka","ar":"شكشوكة كازو","p":"2.800","img":"https://www.ordercaptain.com/kazu/smallpics/SHAKSHUKA.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/SHAKSHUKA.jpg"},{"id":17626,"c":0,"s":11,"en":"Turkish Shakshuka","ar":"شكشوكة تركية","p":"2.800","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%D8%B4%D9%83%D8%B4%D9%88%D9%83%D9%87%20%D8%AA%D8%B1%D9%83%D9%8A%D9%87%20.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%D8%B4%D9%83%D8%B4%D9%88%D9%83%D9%87%20%D8%AA%D8%B1%D9%83%D9%8A%D9%87%20.jpg"},{"id":17627,"c":0,"s":12,"en":"Arabic Breakfast","ar":"إفطار عربي","p":"6.500","img":"https://www.ordercaptain.com/kazu/20250614/smallpics/Arabic%20breakfast.jpg","big":"https://www.ordercaptain.com/kazu/20250614/bigpics/Arabic%20breakfast.jpg"},{"id":17628,"c":0,"s":13,"en":"Sampler Platter","ar":"سامبلر بلاتر","p":"6.500","img":"https://www.ordercaptain.com/kazu/20250614/smallpics/Sampler%20platter.jpg","big":"https://www.ordercaptain.com/kazu/20250614/bigpics/Sampler%20platter.jpg"},{"id":17629,"c":1,"s":1,"en":"Club Sandwich","ar":"كلوب ساندويش","p":"2.600","img":"https://www.ordercaptain.com/kazu/smallpics/16%20PIECES%20CLUB%20SANDIWCH%20BOX.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/16%20PIECES%20CLUB%20SANDIWCH%20BOX.jpg"},{"id":17630,"c":1,"s":2,"en":"Halloumi","ar":"حلومي","p":"2.400","img":"https://www.ordercaptain.com/kazu/smallpics/HALLOUMI%20WITH%20PESTO%20CROISSANT.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/HALLOUMI%20WITH%20PESTO%20CROISSANT.jpg"},{"id":17631,"c":1,"s":3,"en":"Brioche","ar":"بريوشا","p":"2.600","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%D8%A8%D9%88%D8%B1%D8%B4%D9%8A%D8%AA%D8%A7%20.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%D8%A8%D9%88%D8%B1%D8%B4%D9%8A%D8%AA%D8%A7%20.jpg"},{"id":17632,"c":1,"s":4,"en":"Hash Avocado","ar":"هاش أفوكادو","p":"2.900","img":"https://www.ordercaptain.com/kazu/smallpics/HASS%20AVOCADO.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/HASS%20AVOCADO.jpg"},{"id":17633,"c":1,"s":5,"en":"Avocado Scramble","ar":"أفوكادو سكرامبل","p":"3.000","img":"https://www.ordercaptain.com/kazu/smallpics/SCRAMBELD%20AVOCADO.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/SCRAMBELD%20AVOCADO.jpg"},{"id":17636,"c":2,"s":1,"en":"Croissant Plain","ar":"كرواسون ساده","p":"0.900","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%D9%83%D8%B1%D9%88%D8%A7%D8%B3%D9%88%D9%86%20%D8%B3%D8%A7%D8%AF%D9%87%20.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%D9%83%D8%B1%D9%88%D8%A7%D8%B3%D9%88%D9%86%20%D8%B3%D8%A7%D8%AF%D9%87%20.jpg"},{"id":17637,"c":2,"s":2,"en":"Labneh with Zaatar Croissant","ar":"لبنة مع زعتر كرواسون","p":"1.500","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%D9%83%D8%B1%D9%88%D8%A7%D8%B3%D9%88%D9%86%20%D8%AA%D8%B4%D9%8A%D8%B2%20.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%D9%83%D8%B1%D9%88%D8%A7%D8%B3%D9%88%D9%86%20%D8%AA%D8%B4%D9%8A%D8%B2%20.jpg"},{"id":17638,"c":2,"s":3,"en":"Trill Cheese Croissant","ar":"تريل تشيز كرواسون","p":"1.700","img":"https://www.ordercaptain.com/kazu/smallpics/TRIPLE%20CHEESE%20CROISSANT.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/TRIPLE%20CHEESE%20CROISSANT.jpg"},{"id":17639,"c":2,"s":4,"en":"Halloumi Croissant","ar":"حلومي كرواسون","p":"1.900","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%D9%83%D8%B1%D9%88%D8%A7%D8%B3%D9%88%D9%86%20%D8%AD%D9%84%D9%88%D9%85%20.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%D9%83%D8%B1%D9%88%D8%A7%D8%B3%D9%88%D9%86%20%D8%AD%D9%84%D9%88%D9%85%20.jpg"},{"id":17640,"c":2,"s":5,"en":"Egg with Turkey Croissant","ar":"بيض مع تركي كرواسون","p":"1.900","img":"https://www.ordercaptain.com/kazu/smallpics/TURKEY%20AND%20EGG%20CROISSANT.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/TURKEY%20AND%20EGG%20CROISSANT.jpg"},{"id":17642,"c":3,"s":1,"en":"Lentil Soup","ar":"شوربة عدس","p":"1.400","img":"https://www.ordercaptain.com/kazu/smallpics/LENTIL%20SOUP.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/LENTIL%20SOUP.jpg"},{"id":17643,"c":3,"s":2,"en":"Corn Soup","ar":"شوربة ذرة","p":"1.800","img":"https://www.ordercaptain.com/kazu/20250614/smallpics/Corn%20soup.jpg","big":"https://www.ordercaptain.com/kazu/20250614/bigpics/Corn%20soup.jpg"},{"id":17644,"c":3,"s":3,"en":"Mushroom Soup","ar":"شوربة فطر","p":"2.100","img":"https://www.ordercaptain.com/kazu/smallpics/MUSHROOM%20SOUP.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/MUSHROOM%20SOUP.jpg"},{"id":17646,"c":3,"s":4,"en":"Seafood Soup","ar":"شوربة ثمار البحر","p":"3.300","img":"https://www.ordercaptain.com/kazu/smallpics/SEAFOOD%20SOUP.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/SEAFOOD%20SOUP.jpg"},{"id":17647,"c":4,"s":1,"en":"Arabic Salad","ar":"سلطة عربية","p":"1.500","img":"https://www.ordercaptain.com/kazu/smallpics/ARABIC%20SALAD.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/ARABIC%20SALAD.jpg"},{"id":17648,"c":4,"s":2,"en":"Greek Salad","ar":"سلطة يونانية","p":"2.200","img":"https://www.ordercaptain.com/kazu/20250614/smallpics/Greek%20salad.jpg","big":"https://www.ordercaptain.com/kazu/20250614/bigpics/Greek%20salad.jpg"},{"id":17649,"c":4,"s":3,"en":"Fattoush Salad","ar":"سلطة فتوش","p":"2.300","img":"https://www.ordercaptain.com/kazu/smallpics/FATTOUCH%20SALAD.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/FATTOUCH%20SALAD.jpg"},{"id":17650,"c":4,"s":4,"en":"Arugula Salad","ar":"سلطة جرجير","p":"2.300","img":"https://www.ordercaptain.com/kazu/20250614/smallpics/Rocket%20salad.jpg","big":"https://www.ordercaptain.com/kazu/20250614/bigpics/Rocket%20salad.jpg"},{"id":17651,"c":4,"s":5,"en":"Taco Salad","ar":"سلطة تاكو","p":"2.900","img":"https://www.ordercaptain.com/kazu/smallpics/w%20plate/TACO%20SALAD.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/w%20plate/TACO%20SALAD.jpg"},{"id":17652,"c":4,"s":6,"en":"Dynamite Chicken Salad","ar":"سلطة دجاج بصوص الدايناميت","p":"2.900","img":"https://www.ordercaptain.com/kazu/smallpics/DYNAMITE%20CHICKEN.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/DYNAMITE%20CHICKEN.jpg"},{"id":17653,"c":4,"s":7,"en":"Caesar Salad","ar":"سلطة سيزر","p":"3.200","img":"https://www.ordercaptain.com/kazu/smallpics/SMOKED%20CEASER%20SALAD.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/SMOKED%20CEASER%20SALAD.jpg"},{"id":17654,"c":4,"s":8,"en":"Beetroot Salad","ar":"سلطة شمندر","p":"3.400","img":"https://www.ordercaptain.com/kazu/smallpics/BEETROOT%20SALAD.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/BEETROOT%20SALAD.jpg"},{"id":17655,"c":5,"s":1,"en":"Garlic Bread","ar":"خبز بالثوم","p":"1.900","img":"https://www.ordercaptain.com/kazu/smallpics/GARLIC%20BREAD.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/GARLIC%20BREAD.jpg"},{"id":17656,"c":5,"s":2,"en":"Taco (3 pieces)","ar":"تاكو (3 قطع)","p":"1.900","img":"https://www.ordercaptain.com/kazu/20250614/smallpics/Tacos.jpg","big":"https://www.ordercaptain.com/kazu/20250614/bigpics/Tacos.jpg"},{"id":17657,"c":5,"s":3,"en":"Chicken Buffalo Bites","ar":"تشكن بافلو بايتس","p":"2.000","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%D8%AA%D8%B4%D9%83%D9%8A%D9%86%20%D8%A8%D8%A7%D9%81%D9%84%D9%88%20%D8%A8%D8%A7%D9%8A%D8%AA%D8%B3%20.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%D8%AA%D8%B4%D9%83%D9%8A%D9%86%20%D8%A8%D8%A7%D9%81%D9%84%D9%88%20%D8%A8%D8%A7%D9%8A%D8%AA%D8%B3%20.jpg"},{"id":17658,"c":5,"s":4,"en":"Chicken Dynamite","ar":"تشكن دايناميت","p":"2.500","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%D8%AA%D8%B4%D9%83%D9%86%20%D8%AF%D8%A7%D9%8A%D9%86%D9%85%D8%AA%20.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%D8%AA%D8%B4%D9%83%D9%86%20%D8%AF%D8%A7%D9%8A%D9%86%D9%85%D8%AA%20.jpg"},{"id":17661,"c":5,"s":5,"en":"Croissant with Bechamel","ar":"كروسان بالبشاميل","p":"2.800","img":"https://www.ordercaptain.com/kazu/20250614/smallpics/Croissants%20with%20bechamel.jpg","big":"https://www.ordercaptain.com/kazu/20250614/bigpics/Croissants%20with%20bechamel.jpg"},{"id":17663,"c":5,"s":6,"en":"Dynamite Shrimp","ar":"دايناميت شريمب","p":"3.500","img":"https://www.ordercaptain.com/kazu/smallpics/DYNAMITE%20SHRIMP.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/DYNAMITE%20SHRIMP.jpg"},{"id":17664,"c":5,"s":7,"en":"Chicken Toast Roll","ar":"تشكن توست رول","p":"3.500","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%D8%AA%D8%B4%D9%83%D9%8A%D9%86%20%D8%AA%D9%88%D8%B3%D8%AA%20%D8%B1%D9%88%D9%84%20.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%D8%AA%D8%B4%D9%83%D9%8A%D9%86%20%D8%AA%D9%88%D8%B3%D8%AA%20%D8%B1%D9%88%D9%84%20.jpg"},{"id":17665,"c":6,"s":1,"en":"French Fries","ar":"فرنش فرايز","p":"1.200","img":"https://www.ordercaptain.com/kazu/smallpics/FRENCH%20FRIES.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/FRENCH%20FRIES.jpg"},{"id":17666,"c":6,"s":2,"en":"Wedges Fries","ar":"ويدجز فرايز","p":"1.300","img":"https://www.ordercaptain.com/kazu/smallpics/WEDGES%20FRIES.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/WEDGES%20FRIES.jpg"},{"id":17667,"c":6,"s":3,"en":"Cheese Fries","ar":"تشيز فرايز","p":"1.700","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%D8%AA%D8%B4%D9%8A%D8%B2%20%D9%81%D8%B1%D8%A7%D9%8A%D8%B2%20.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%D8%AA%D8%B4%D9%8A%D8%B2%20%D9%81%D8%B1%D8%A7%D9%8A%D8%B2%20.jpg"},{"id":17668,"c":6,"s":4,"en":"King Fries","ar":"كنغ فرايز","p":"2.500","img":"https://www.ordercaptain.com/kazu/smallpics/KING%20FRIES.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/KING%20FRIES.jpg"},{"id":17669,"c":6,"s":5,"en":"Bolognese Fries","ar":"بولونيزا فرايز","p":"2.700","img":"https://www.ordercaptain.com/kazu/20250614/smallpics/Pollensa%20Fries.jpg","big":"https://www.ordercaptain.com/kazu/20250614/bigpics/Pollensa%20Fries.jpg"},{"id":17670,"c":7,"s":1,"en":"Crispy Burger","ar":"كريسبي برجر","p":"2.500","img":"https://www.ordercaptain.com/kazu/smallpics/CHICKEN%20CRISPY%20BURGER.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/CHICKEN%20CRISPY%20BURGER.jpg"},{"id":17671,"c":7,"s":2,"en":"Kazoo Beef Burger","ar":"كازو بيف برجر","p":"2.900","img":"https://www.ordercaptain.com/kazu/smallpics/KAZU%20BURGER.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/KAZU%20BURGER.jpg"},{"id":17672,"c":7,"s":3,"en":"Slider Burger (3 pieces)","ar":"سلايدر برجر (3 حبات)","p":"3.000","img":"https://www.ordercaptain.com/kazu/smallpics/SLIDER%20BURGER.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/SLIDER%20BURGER.jpg"},{"id":17673,"c":7,"s":4,"en":"Black on Black","ar":"بلاك أون بلاك","p":"3.000","img":"https://www.ordercaptain.com/kazu/20250614/smallpics/Black%20on%20black.jpg","big":"https://www.ordercaptain.com/kazu/20250614/bigpics/Black%20on%20black.jpg"},{"id":17674,"c":7,"s":5,"en":"Caramelized Beef Burger","ar":"كرملايز بيف برجر","p":"3.200","img":"https://www.ordercaptain.com/kazu/smallpics/KARMALIZE%20BURGER.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/KARMALIZE%20BURGER.jpg"},{"id":17680,"c":8,"s":1,"en":"Butter Chicken with White Rice","ar":"بتر تشكن مع الأرز الأبيض","p":"3.500","img":"https://www.ordercaptain.com/kazu/smallpics/CHICKEN%20BUTTER.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/CHICKEN%20BUTTER.jpg"},{"id":17681,"c":8,"s":2,"en":"Chicken Provençal Steak","ar":"تشكن بروفنسال ستيك","p":"4.700","img":"https://www.ordercaptain.com/kazu/20250614/smallpics/Chicken%20profensal.jpg","big":"https://www.ordercaptain.com/kazu/20250614/bigpics/Chicken%20profensal.jpg"},{"id":17682,"c":8,"s":3,"en":"Chicken Mushroom Steak","ar":"تشكن مشروم ستيك","p":"4.900","img":"https://www.ordercaptain.com/kazu/smallpics/CHICKEN%20MUSHROOM%20STEAK.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/CHICKEN%20MUSHROOM%20STEAK.jpg"},{"id":17684,"c":9,"s":1,"en":"Chicken Majboos","ar":"مجبوس دجاج","p":"2.900","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%D9%85%D8%AC%D8%A8%D9%88%D8%B3%20%D8%AF%D8%AC%D8%A7%D8%AC%20.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%D9%85%D8%AC%D8%A8%D9%88%D8%B3%20%D8%AF%D8%AC%D8%A7%D8%AC%20.jpg"},{"id":17685,"c":9,"s":2,"en":"Chicken Biryani","ar":"برياني دجاج","p":"3.500","img":"https://www.ordercaptain.com/kazu/smallpics/BIRYANI%20CHICKEN.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/BIRYANI%20CHICKEN.jpg"},{"id":17687,"c":9,"s":3,"en":"Mansaf ( Fridays Only )","ar":"منسف ( فقط يوم الجمعة )","p":"4.500","img":"https://www.ordercaptain.com/kazu/smallpics/JORDAN%20MANSAF.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/JORDAN%20MANSAF.jpg"},{"id":17688,"c":10,"s":1,"en":"Arrabiata Pasta","ar":"أرابياتا باستا","p":"2.900","img":"https://www.ordercaptain.com/kazu/smallpics/ARRABBIATA%20PASTA.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/ARRABBIATA%20PASTA.jpg"},{"id":17689,"c":10,"s":2,"en":"Pink Pasta","ar":"بنك باستا","p":"3.200","img":"https://www.ordercaptain.com/kazu/smallpics/PINK%20CHICKEN%20PASTA.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/PINK%20CHICKEN%20PASTA.jpg"},{"id":17690,"c":10,"s":3,"en":"Fettuccine Alfredo","ar":"فوتشيني الفريدو","p":"3.200","img":"https://www.ordercaptain.com/kazu/smallpics/ALFREDO%20CHICKEN%20PASTA.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/ALFREDO%20CHICKEN%20PASTA.jpg"},{"id":17691,"c":10,"s":4,"en":"Penne Pesto","ar":"بينا بيستو","p":"3.500","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%D8%A8%D9%86%D9%8A%20%D8%A8%D9%8A%D8%B3%D8%AA%D9%88%20.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%D8%A8%D9%86%D9%8A%20%D8%A8%D9%8A%D8%B3%D8%AA%D9%88%20.jpg"},{"id":17692,"c":10,"s":5,"en":"Spaghetti Bolognese","ar":"اسبغيتي بولونيزا","p":"3.500","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%E2%80%8F%20%D8%B3%D8%A8%D8%A7%D8%BA%D8%AA%D9%8A%20%D9%84%D9%8A%D8%B2%D8%A7%20.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%E2%80%8F%20%D8%B3%D8%A8%D8%A7%D8%BA%D8%AA%D9%8A%20%D9%84%D9%8A%D8%B2%D8%A7%20.jpg"},{"id":17693,"c":10,"s":6,"en":"Lasagna","ar":"لازانيا","p":"3.800","img":"https://www.ordercaptain.com/kazu/smallpics/LASAGNA.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/LASAGNA.jpg"},{"id":17694,"c":10,"s":7,"en":"Penne with Seafood (Marinara)","ar":"بينا مع المأكولات البحرية (مارينارا)","p":"4.000","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%D9%85%D8%A7%D8%B1%D9%8A%D9%86%D8%A7%D8%B1%D8%A7.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%D9%85%D8%A7%D8%B1%D9%8A%D9%86%D8%A7%D8%B1%D8%A7.jpg"},{"id":17696,"c":11,"s":1,"en":"Chicken Risotto","ar":"ريزوتو تشكن","p":"3.500","img":"https://www.ordercaptain.com/kazu/smallpics/RISOTTO%20CHICKEN.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/RISOTTO%20CHICKEN.jpg"},{"id":17697,"c":11,"s":2,"en":"Shrimp Risotto","ar":"شريمب ريزوتو","p":"4.000","img":"https://www.ordercaptain.com/kazu/20250614/smallpics/Shrimp%20Roseto%20.jpg","big":"https://www.ordercaptain.com/kazu/20250614/bigpics/Shrimp%20Roseto%20.jpg"},{"id":17698,"c":11,"s":3,"en":"Marinara Risotto","ar":"مارينارا ريزوتو","p":"4.000","img":"https://www.ordercaptain.com/kazu/20250614/smallpics/Marinara%20mix%20seafood.jpg","big":"https://www.ordercaptain.com/kazu/20250614/bigpics/Marinara%20mix%20seafood.jpg"},{"id":17703,"c":12,"s":1,"en":"Chocolate Croissant","ar":"شوكليت كرواسون","p":"1.500","img":"https://www.ordercaptain.com/kazu/smallpics/MIX%20PISTACHIO%20CHOCOLATE%20CROISSANT.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/MIX%20PISTACHIO%20CHOCOLATE%20CROISSANT.jpg"},{"id":17704,"c":12,"s":2,"en":"Pistachio Croissant","ar":"بيستاشو كرواسون","p":"1.700","img":"https://www.ordercaptain.com/kazu/smallpics/PISTACHIO%20CROISSANT.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/PISTACHIO%20CROISSANT.jpg"},{"id":17706,"c":12,"s":3,"en":"Mix Chocolate Croissant","ar":"مكس شوكليت كرواسون","p":"1.700","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%D9%85%D9%83%D8%B3%20%D9%83%D8%B1%D9%88%D8%A7%D8%B3%D9%88%D9%86%20.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%D9%85%D9%83%D8%B3%20%D9%83%D8%B1%D9%88%D8%A7%D8%B3%D9%88%D9%86%20.jpg"},{"id":17707,"c":13,"s":1,"en":"Brownies","ar":"براونيز","p":"2.300","img":"https://www.ordercaptain.com/kazu/smallpics/BROWNIES.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/BROWNIES.jpg"},{"id":17708,"c":13,"s":2,"en":"Crispy French Toast","ar":"كريسبي فرنش توست","p":"2.500","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%D9%83%D8%B1%D8%B3%D8%A8%D9%8A%20%D9%81%D8%B1%D9%86%D8%B4%20%D8%AA%D9%88%D8%B3%D8%AA%20.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%D9%83%D8%B1%D8%B3%D8%A8%D9%8A%20%D9%81%D8%B1%D9%86%D8%B4%20%D8%AA%D9%88%D8%B3%D8%AA%20.jpg"},{"id":17709,"c":13,"s":3,"en":"San Sebastian","ar":"سان سيباستيان","p":"2.500","img":"https://www.ordercaptain.com/kazu/smallpics/SAN%20SEBASTIAN.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/SAN%20SEBASTIAN.jpg"},{"id":17710,"c":13,"s":4,"en":"Chocolate Cake","ar":"شوكليت كيك","p":"2.500","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%D8%B4%D9%88%D9%83%D9%84%D8%A7%D8%AA%D9%87%20%D9%83%D9%8A%D9%83%20.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%D8%B4%D9%88%D9%83%D9%84%D8%A7%D8%AA%D9%87%20%D9%83%D9%8A%D9%83%20.jpg"},{"id":17711,"c":13,"s":5,"en":"Red Velvet Cake","ar":"ريد ڤلڤت كيك","p":"2.700","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%D8%B1%D8%AF%20%D9%81%D9%8A%D9%84%D9%81%D8%AA%20%D9%83%D9%8A%D9%83%20.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%D8%B1%D8%AF%20%D9%81%D9%8A%D9%84%D9%81%D8%AA%20%D9%83%D9%8A%D9%83%20.jpg"},{"id":17713,"c":13,"s":6,"en":"Kunafa Pistachio Cheesecake","ar":"كنافة بيستاشو تشيز كيك","p":"2.700","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%D9%83%D9%86%D8%A7%D9%81%D9%87%20%D8%AA%D8%B4%D9%8A%D8%B2%20%D9%83%D9%8A%D9%83%20.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%D9%83%D9%86%D8%A7%D9%81%D9%87%20%D8%AA%D8%B4%D9%8A%D8%B2%20%D9%83%D9%8A%D9%83%20.jpg"},{"id":17714,"c":14,"s":1,"en":"Espresso","ar":"اسبريسو","p":"1.400","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%D8%A7%D8%B3%D8%A8%D8%B1%D9%8A%D8%B3%D9%88%20.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%D8%A7%D8%B3%D8%A8%D8%B1%D9%8A%D8%B3%D9%88%20.jpg"},{"id":17715,"c":14,"s":2,"en":"Americano","ar":"أمريكانو","p":"1.600","img":"https://www.ordercaptain.com/kazu/smallpics/HOT%20AMERICANO.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/HOT%20AMERICANO.jpg"},{"id":17716,"c":14,"s":3,"en":"Piccolo","ar":"بيكولو","p":"1.700","img":"https://www.ordercaptain.com/kazu/smallpics/PICCOLO.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/PICCOLO.jpg"},{"id":17717,"c":14,"s":4,"en":"Cortado","ar":"كورتادو","p":"1.700","img":"https://www.ordercaptain.com/kazu/smallpics/CORTADO.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/CORTADO.jpg"},{"id":17718,"c":14,"s":5,"en":"Cappuccino","ar":"كابيتشو","p":"1.800","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%E2%80%8F%D9%83%D8%A7%D8%A8%D8%AA%D8%B4%D9%8A%D9%86%D9%88.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%E2%80%8F%D9%83%D8%A7%D8%A8%D8%AA%D8%B4%D9%8A%D9%86%D9%88.jpg"},{"id":17719,"c":14,"s":6,"en":"Latte","ar":"لاتيه","p":"1.800","img":"https://www.ordercaptain.com/kazu/smallpics/HOT%20LATTE.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/HOT%20LATTE.jpg"},{"id":17720,"c":14,"s":7,"en":"Flat White","ar":"فلات وايت","p":"1.800","img":"https://www.ordercaptain.com/kazu/smallpics/FLATT%20WHITE.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/FLATT%20WHITE.jpg"},{"id":17721,"c":14,"s":8,"en":"Hot Chocolate","ar":"شوكولة ساخنة","p":"1.900","img":"https://www.ordercaptain.com/kazu/smallpics/HOT%20CHOCOLATE.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/HOT%20CHOCOLATE.jpg"},{"id":17722,"c":14,"s":9,"en":"Spanish Latte","ar":"سبانيش لاتيه","p":"1.900","img":"https://www.ordercaptain.com/kazu/smallpics/HOT%20SPANISH%20LATTE.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/HOT%20SPANISH%20LATTE.jpg"},{"id":17723,"c":14,"s":10,"en":"Caramel Latte","ar":"كراميل لاتيه","p":"1.900","img":"https://www.ordercaptain.com/kazu/20250617/smallpics/IMG-20250617-WA0017.jpg","big":"https://www.ordercaptain.com/kazu/20250617/smallpics/IMG-20250617-WA0017.jpg"},{"id":17724,"c":14,"s":11,"en":"Saffron Latte","ar":"زعفران لاتيه","p":"1.900","img":"https://www.ordercaptain.com/kazu/20250618/smallpics/IMG-20250617-WA0015-removebg-preview.jpg","big":"https://www.ordercaptain.com/kazu/20250618/bigpics/IMG-20250617-WA0015-removebg-preview.jpg"},{"id":17725,"c":14,"s":12,"en":"Rose Latte","ar":"روز لاتية","p":"1.900","img":"https://www.ordercaptain.com/kazu/20250618/smallpics/IMG-20250617-WA0016-removebg-preview.jpg","big":"https://www.ordercaptain.com/kazu/20250618/bigpics/IMG-20250617-WA0016-removebg-preview.jpg"},{"id":17726,"c":14,"s":13,"en":"Pistachio Latte","ar":"بيستاشو لاتيه","p":"2.000","img":"https://www.ordercaptain.com/kazu/smallpics/HOT%20PISTACHIO%20LATTE.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/HOT%20PISTACHIO%20LATTE.jpg"},{"id":17727,"c":14,"s":14,"en":"Matcha","ar":"ماتشا","p":"2.000","img":"https://www.ordercaptain.com/kazu/smallpics/HOT%20MATCHA.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/HOT%20MATCHA.jpg"},{"id":17728,"c":14,"s":15,"en":"V60","ar":"V60","p":"2.100","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/V60%20%D8%B3%D8%A7%D8%AE%D9%86%20.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/V60%20%D8%B3%D8%A7%D8%AE%D9%86%20.jpg"},{"id":17729,"c":14,"s":16,"en":"Arabic Coffee","ar":"قهوة عربية","p":"3.000","img":"https://www.ordercaptain.com/kazu/smallpics/ARABIC%20COFFE.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/ARABIC%20COFFE.jpg"},{"id":17730,"c":15,"s":1,"en":"Iced Americano","ar":"ايس أمريكانو","p":"1.600","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%D8%A7%D9%8A%D8%B3%20%D8%A7%D9%85%D8%B1%D9%8A%D9%83%D8%A7%D9%86%D9%88%20.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%D8%A7%D9%8A%D8%B3%20%D8%A7%D9%85%D8%B1%D9%8A%D9%83%D8%A7%D9%86%D9%88%20.jpg"},{"id":17731,"c":15,"s":2,"en":"Iced Latte","ar":"ايس لاتيه","p":"1.800","img":"https://www.ordercaptain.com/kazu/smallpics/ICE%20LATTE.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/ICE%20LATTE.jpg"},{"id":17732,"c":15,"s":3,"en":"Iced Spanish Latte","ar":"ايس سبانيش لاتيه","p":"1.900","img":"https://www.ordercaptain.com/kazu/smallpics/ICE%20SPANISH%20LATTE.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/ICE%20SPANISH%20LATTE.jpg"},{"id":17733,"c":15,"s":4,"en":"Iced Caramel Latte","ar":"ايس كراميل لاتيه","p":"1.900","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%D9%83%D8%B1%D8%A7%D9%85%D9%8A%D9%84%20%D8%A8%D8%A7%D8%B1%D8%AF%20.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%D9%83%D8%B1%D8%A7%D9%85%D9%8A%D9%84%20%D8%A8%D8%A7%D8%B1%D8%AF%20.jpg"},{"id":17734,"c":15,"s":5,"en":"Iced Saffron Latte","ar":"ايس زعفران لاتيه","p":"1.900","img":"https://www.ordercaptain.com/kazu/smallpics/ICE%20SAFFRON%20LATTE.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/ICE%20SAFFRON%20LATTE.jpg"},{"id":17735,"c":15,"s":6,"en":"Iced Rose Latte","ar":"ايس روز لاتيه","p":"1.900","img":"https://www.ordercaptain.com/kazu/smallpics/ICE%20ROSE%20LATTE.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/ICE%20ROSE%20LATTE.jpg"},{"id":17736,"c":15,"s":7,"en":"Pistachio Latte","ar":"ايس بيستاشو لاتيه","p":"2.000","img":"https://www.ordercaptain.com/kazu/20250618/smallpics/IMG-20250617-WA0018-removebg-preview.jpg","big":"https://www.ordercaptain.com/kazu/20250618/bigpics/IMG-20250617-WA0018-removebg-preview.jpg"},{"id":17737,"c":15,"s":8,"en":"Iced Matcha","ar":"ايس ماتشا","p":"2.000","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%D9%85%D8%A7%D8%AA%D8%B4%D8%A7%20%D8%A8%D8%A7%D8%B1%D8%AF%20.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%D9%85%D8%A7%D8%AA%D8%B4%D8%A7%20%D8%A8%D8%A7%D8%B1%D8%AF%20.jpg"},{"id":17738,"c":15,"s":9,"en":"Strawberry Iced Matcha","ar":"ايستروبيري ايس ماتشا","p":"2.200","img":"https://www.ordercaptain.com/kazu/smallpics/ICE%20STRAWBERRY%20MATCHA.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/ICE%20STRAWBERRY%20MATCHA.jpg"},{"id":17739,"c":15,"s":10,"en":"Creamy Espresso","ar":"كريمي اسبريسو","p":"2.200","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%D9%83%D8%B1%D9%8A%D9%85%20%D8%A7%D8%B3%D8%A8%D8%B1%D9%8A%D8%B3%D9%88%20.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%D9%83%D8%B1%D9%8A%D9%85%20%D8%A7%D8%B3%D8%A8%D8%B1%D9%8A%D8%B3%D9%88%20.jpg"},{"id":17740,"c":15,"s":11,"en":"V60","ar":"V60 بارد","p":"3.000","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/V60%20cold.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/V60%20cold.jpg"},{"id":17741,"c":16,"s":1,"en":"Passion Iced Tea","ar":"ايس تي باشن","p":"1.700","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%D9%83%D9%84%20%D8%A7%D9%86%D9%88%D8%A7%D8%B9%20%D8%A7%D9%84%D8%A7%D9%8A%20%D8%B3%D8%AA%D9%8A%20.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%D9%83%D9%84%20%D8%A7%D9%86%D9%88%D8%A7%D8%B9%20%D8%A7%D9%84%D8%A7%D9%8A%20%D8%B3%D8%AA%D9%8A%20.jpg"},{"id":17742,"c":16,"s":2,"en":"Blueberry Iced Tea","ar":"ايس تي بلوبيري","p":"1.700","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%D9%83%D9%84%20%D8%A7%D9%86%D9%88%D8%A7%D8%B9%20%D8%A7%D9%84%D8%A7%D9%8A%20%D8%B3%D8%AA%D9%8A%20.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%D9%83%D9%84%20%D8%A7%D9%86%D9%88%D8%A7%D8%B9%20%D8%A7%D9%84%D8%A7%D9%8A%20%D8%B3%D8%AA%D9%8A%20.jpg"},{"id":17743,"c":16,"s":3,"en":"Green Apple Iced Tea","ar":"ايس تي جرين ابل","p":"1.700","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%D9%83%D9%84%20%D8%A7%D9%86%D9%88%D8%A7%D8%B9%20%D8%A7%D9%84%D8%A7%D9%8A%20%D8%B3%D8%AA%D9%8A%20.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%D9%83%D9%84%20%D8%A7%D9%86%D9%88%D8%A7%D8%B9%20%D8%A7%D9%84%D8%A7%D9%8A%20%D8%B3%D8%AA%D9%8A%20.jpg"},{"id":17744,"c":16,"s":4,"en":"Strawberry Iced Tea","ar":"ايس تي فراولة","p":"1.700","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%D9%83%D9%84%20%D8%A7%D9%86%D9%88%D8%A7%D8%B9%20%D8%A7%D9%84%D8%A7%D9%8A%20%D8%B3%D8%AA%D9%8A%20.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%D9%83%D9%84%20%D8%A7%D9%86%D9%88%D8%A7%D8%B9%20%D8%A7%D9%84%D8%A7%D9%8A%20%D8%B3%D8%AA%D9%8A%20.jpg"},{"id":17745,"c":17,"s":1,"en":"Strawberry Mojito","ar":"موهيتو فراولة","p":"1.600","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%D9%85%D8%A7%D9%87%D9%8A%D8%AA%D9%88%20%D9%81%D8%B1%D9%88%D9%84%D9%87%20.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%D9%85%D8%A7%D9%87%D9%8A%D8%AA%D9%88%20%D9%81%D8%B1%D9%88%D9%84%D9%87%20.jpg"},{"id":17746,"c":17,"s":2,"en":"Passion Mojito","ar":"موهيتو باشن","p":"1.600","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%D9%85%D8%A7%D9%87%D9%8A%D8%AA%D9%88%20%D8%A8%D8%A7%D8%B4%D9%86%20.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%D9%85%D8%A7%D9%87%D9%8A%D8%AA%D9%88%20%D8%A8%D8%A7%D8%B4%D9%86%20.jpg"},{"id":17747,"c":17,"s":3,"en":"Blueberry Mojito","ar":"موهيتو بلوبيري","p":"1.600","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%D9%85%D8%A7%D9%87%D9%8A%D8%AA%D9%88%20%D8%A8%D9%84%D9%88%20%D8%A8%D9%8A%D8%B1%D9%8A%20.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%D9%85%D8%A7%D9%87%D9%8A%D8%AA%D9%88%20%D8%A8%D9%84%D9%88%20%D8%A8%D9%8A%D8%B1%D9%8A%20.jpg"},{"id":17748,"c":17,"s":4,"en":"Green Apple Mojito","ar":"موهيتو جرين ابل","p":"1.600","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%D8%AA%D9%81%D8%A7%D8%AD%20%D8%A7%D9%94%D8%AE%D8%B6%D8%B1%20%D9%85%D8%A7%D9%87%D9%8A%D8%AA%D9%88%20.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%D8%AA%D9%81%D8%A7%D8%AD%20%D8%A7%D9%94%D8%AE%D8%B6%D8%B1%20%D9%85%D8%A7%D9%87%D9%8A%D8%AA%D9%88%20.jpg"},{"id":17749,"c":18,"s":1,"en":"Blueberry Smoothie","ar":"سموثي بلوبيري","p":"1.900","img":"https://www.ordercaptain.com/kazu/smallpics/BLUEBERRY%20SMOOTHIE.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/BLUEBERRY%20SMOOTHIE.jpg"},{"id":17750,"c":18,"s":2,"en":"Strawberry Smoothie","ar":"سموثي فراولة","p":"1.900","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%D8%B3%D9%85%D9%88%D8%AB%D9%8A%20%D9%81%D8%B1%D8%A7%D9%88%D9%84%D9%87%20.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%D8%B3%D9%85%D9%88%D8%AB%D9%8A%20%D9%81%D8%B1%D8%A7%D9%88%D9%84%D9%87%20.jpg"},{"id":17751,"c":18,"s":3,"en":"Mixed Berry Smoothie","ar":"سموثي مكس بيري","p":"1.900","img":"https://www.ordercaptain.com/kazu/smallpics/MIXBERRY%20SMOOTHIE.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/MIXBERRY%20SMOOTHIE.jpg"},{"id":17752,"c":18,"s":4,"en":"Banana Berry Smoothie","ar":"سموثي بنانا بيري","p":"1.900","img":"https://www.ordercaptain.com/kazu/smallpics/BANANABERRY%20%20SMOOTHIE.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/BANANABERRY%20%20SMOOTHIE.jpg"},{"id":17753,"c":19,"s":1,"en":"Orange Juice","ar":"عصير برتقال","p":"1.400","img":"https://www.ordercaptain.com/kazu/smallpics/ORANGE%20JUICE.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/ORANGE%20JUICE.jpg"},{"id":17754,"c":19,"s":2,"en":"Strawberry Juice","ar":"عصير فراولة","p":"1.500","img":"https://www.ordercaptain.com/kazu/smallpics/STRAWBERRY%20JUICE.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/STRAWBERRY%20JUICE.jpg"},{"id":17755,"c":19,"s":3,"en":"Mango Juice","ar":"عصير مانجا","p":"1.500","img":"https://www.ordercaptain.com/kazu/smallpics/MANGO%20JUICE.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/MANGO%20JUICE.jpg"},{"id":17756,"c":19,"s":4,"en":"Hibiscus Drink","ar":"شراب الكركديه","p":"1.600","img":"https://www.ordercaptain.com/kazu/smallpics/ROSE%20HIBISCUS.jpg","big":"https://www.ordercaptain.com/kazu/bigpics/ROSE%20HIBISCUS.jpg"},{"id":17758,"c":20,"s":1,"en":"Mineral Water","ar":"مياه معدنية","p":"0.200","img":"https://www.ordercaptain.com/kazu/20250616/smallpics/%D9%85%D8%A7%D9%8A%20%D9%85%D8%B9%D8%AF%D9%86%D9%8A%D8%A9%20.jpg","big":"https://www.ordercaptain.com/kazu/20250616/bigpics/%D9%85%D8%A7%D9%8A%20%D9%85%D8%B9%D8%AF%D9%86%D9%8A%D8%A9%20.jpg"},{"id":17759,"c":20,"s":2,"en":"Kenza","ar":"كينزا","p":"0.400","img":"https://www.ordercaptain.com/kazu/20250618/smallpics/IMG-20250617-WA0019-removebg-preview.jpg","big":"https://www.ordercaptain.com/kazu/20250618/bigpics/IMG-20250617-WA0019-removebg-preview.jpg"}]};
+(function(){
+'use strict';
+const STORE_KEY = 'kazu_menu_editor_v1';
+const MSG_TR_FAIL = 'تعذرت الترجمة الآن، اكتب بالعربي فقط وبنترجمها لاحقاً';
+const PLACEHOLDER = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><rect width="80" height="80" fill="#f1e9e0"/><g fill="none" stroke="#b08d57" stroke-width="3" stroke-linecap="round"><path d="M28 22v14a6 6 0 0 0 12 0V22M34 22v36"/><path d="M52 22c-5 3-6 12-6 18h6v18"/></g></svg>');
+const REASONS = [['seasonal','موسمي'],['specific_days','أيام محددة'],['out_of_stock','نفاد مؤقت'],['equipment','صيانة أو معدات'],['other','أخرى']];
+const STATUSES = [['active','متوفر'],['cancelled','ملغي'],['paused','موقوف مؤقتاً']];
+const TABS = [['all','الكل'],['todo','لم يكتمل'],['done','مكتمل'],['cancelled','ملغي'],['paused','موقوف مؤقتاً']];
+
+const items = DATA.items, cats = DATA.cats, TOTAL = items.length;
+const byId = new Map(items.map(it => [it.id, it]));
+const state = {};
+const ui = {filter:'all', q:'', open:new Set(), els:new Map(), timers:{}, tseq:{}, storeOk:true};
+const $ = s => document.querySelector(s);
+
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function fmtPrice(p){return p + ' ر.ع.';}
+function pad(n){return String(n).padStart(2,'0');}
+function ymd(d){d=d||new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());}
+function isoLocal(d){d=d||new Date();const o=-d.getTimezoneOffset(),s=o>=0?'+':'-',a=Math.abs(o);return ymd(d)+'T'+pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds())+s+pad(Math.floor(a/60))+':'+pad(a%60);}
+function timeAr(d){try{return d.toLocaleTimeString('ar-OM-u-nu-latn',{hour:'numeric',minute:'2-digit'});}catch(e){return pad(d.getHours())+':'+pad(d.getMinutes());}}
+function norm(s){return String(s||'').toLowerCase().replace(/[\u064B-\u065F\u0670\u0640]/g,'').replace(/[أإآٱ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي').replace(/ؤ/g,'و').replace(/ئ/g,'ي').replace(/\s+/g,' ').trim();}
+
+function defState(it){
+  return {name_ar:it.ar, name_en:it.en, desc_ar:'', desc_en:'', desc_en_source:null, status:'active', pause_reason:null,
+    availability_note:/fridays?\s*only/i.test(it.en)?'الجمعة فقط':'', done:false};
+}
+function sanitize(it, s){
+  const d = defState(it); if(!s || typeof s!=='object') return d;
+  const str = (v,f)=> typeof v==='string'?v:f;
+  d.name_ar=str(s.name_ar,d.name_ar)||it.ar; d.name_en=str(s.name_en,d.name_en)||it.en;
+  d.desc_ar=str(s.desc_ar,''); d.desc_en=str(s.desc_en,'');
+  d.desc_en_source=['machine','manual'].includes(s.desc_en_source)?s.desc_en_source:(d.desc_en.trim()?'manual':null);
+  d.status=['active','cancelled','paused'].includes(s.status)?s.status:'active';
+  d.pause_reason=REASONS.some(r=>r[0]===s.pause_reason)?s.pause_reason:null;
+  d.availability_note=str(s.availability_note,d.availability_note);
+  d.done=!!s.done; return d;
+}
+function load(){
+  let saved=null;
+  try{ const raw=localStorage.getItem(STORE_KEY); if(raw) saved=JSON.parse(raw); }catch(e){ ui.storeOk=false; }
+  const m = saved && saved.items || {};
+  items.forEach(it=>{ state[it.id]=sanitize(it, m[it.id]); });
+  if(saved && saved.saved_at) setSaved('آخر حفظ '+timeAr(new Date(saved.saved_at)), false);
+  return !!saved;
+}
+function snapshot(){ return {type:'kazu_menu_progress', version:DATA.version, saved_at:new Date().toISOString(), items:state}; }
+function save(){
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify(snapshot())); ui.storeOk=true; setSaved('محفوظ تلقائياً '+timeAr(new Date()), false); $('#warnStore').style.display='none'; }
+  catch(e){ ui.storeOk=false; setSaved('تعذر الحفظ التلقائي', true); $('#warnStore').style.display='block'; }
+}
+function setSaved(t, err){ $('#savedTxt').textContent=t; $('#saved').classList.toggle('err', !!err); }
+
+function toast(t){ const el=$('#toast'); el.textContent=t; el.classList.add('show'); clearTimeout(ui.toastT); ui.toastT=setTimeout(()=>el.classList.remove('show'),2300); }
+
+/* ---------- modal ---------- */
+function modal(title, bodyHtml, buttons){
+  const m=$('#modal');
+  m.innerHTML='<h3>'+esc(title)+'</h3><div class="mb">'+bodyHtml+'</div><div class="mbtns"></div>';
+  const bw=m.querySelector('.mbtns');
+  (buttons||[{label:'حسناً'}]).forEach(b=>{ const x=document.createElement('button'); x.type='button'; x.className='mbtn '+(b.cls||''); x.textContent=b.label;
+    x.addEventListener('click',()=>{ if(!b.keepOpen) closeModal(); b.onClick&&b.onClick(); }); bw.appendChild(x); });
+  $('#toast').classList.remove('show');
+  $('#ov').classList.add('show');
+}
+function closeModal(){ $('#ov').classList.remove('show'); }
+$('#ov').addEventListener('click',e=>{ if(e.target.id==='ov') closeModal(); });
+
+/* ---------- lightbox ---------- */
+function openLb(it){
+  const img=$('#lbImg'); img.onerror=function(){ if(this.dataset.f!=='1'&&it.img){this.dataset.f='1';this.src=it.img;} else {this.onerror=null;this.src=PLACEHOLDER;} };
+  img.dataset.f=''; img.src=it.big||it.img||PLACEHOLDER; $('#lbCap').textContent=state[it.id].name_ar; $('#lb').classList.add('show');
+}
+$('#lb').addEventListener('click',()=>$('#lb').classList.remove('show'));
+
+/* ---------- build UI ---------- */
+function buildTabs(){
+  $('#tabs').innerHTML = TABS.map(([k,l])=>'<button type="button" class="tab'+(k===ui.filter?' on':'')+'" data-f="'+k+'">'+l+'<b data-c="'+k+'"></b></button>').join('');
+  $('#tabs').addEventListener('click',e=>{ const b=e.target.closest('.tab'); if(!b) return; ui.filter=b.dataset.f;
+    document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t===b)); closeNonMatching(); applyFilter(); window.scrollTo({top:0}); });
+}
+function buildChips(){
+  $('#chips').innerHTML = cats.map((c,i)=>'<button type="button" class="chip" data-i="'+i+'">'+esc(c.ar)+'</button>').join('');
+  $('#chips').addEventListener('click',e=>{ const b=e.target.closest('.chip'); if(!b) return; const sec=document.getElementById('cat-'+b.dataset.i);
+    if(!sec || sec.classList.contains('hidden')){ toast('ما في أصناف ظاهرة في هذا القسم بالتصفية الحالية'); return; }
+    const y=sec.getBoundingClientRect().top+window.scrollY-headerH()-8; window.scrollTo({top:y,behavior:Math.abs(y-window.scrollY)>2500?'auto':'smooth'}); });
+}
+function headerH(){ return $('#hdr').offsetHeight; }
+
+function buildList(){
+  const list=$('#list'); list.innerHTML=''; ui.els.clear();
+  cats.forEach((c,ci)=>{
+    const sec=document.createElement('section'); sec.className='cat'; sec.id='cat-'+ci;
+    sec.innerHTML='<h2><span class="menu">'+esc(c.menu_ar)+'</span>'+esc(c.ar)+' <small dir="ltr">'+esc(c.en)+'</small> <small class="cc"></small></h2><div class="cards"></div>';
+    const wrap=sec.querySelector('.cards');
+    items.filter(it=>it.c===ci).forEach(it=>{ const card=buildCard(it); wrap.appendChild(card); });
+    list.appendChild(sec);
+  });
+}
+function buildCard(it){
+  const el=document.createElement('article'); el.className='card'; el.dataset.id=it.id;
+  el.innerHTML='<div class="head" role="button" tabindex="0" aria-expanded="false">'+
+    '<button type="button" class="thumb" aria-label="تكبير الصورة"><img loading="lazy" decoding="async" alt=""></button>'+
+    '<div class="info"><div class="n-ar"></div><div class="n-en" dir="ltr"></div>'+
+    '<div class="meta"><span class="price">'+esc(fmtPrice(it.p))+'</span><span>·</span><span>'+esc(cats[it.c].ar)+'</span></div>'+
+    '<div class="desc-prev"></div><div class="badges"></div></div><div class="chev">‹</div></div>';
+  const img=el.querySelector('img');
+  img.addEventListener('error',function(){ this.onerror=null; if(this.src!==PLACEHOLDER) this.src=PLACEHOLDER; },{once:true});
+  img.src=it.img||PLACEHOLDER;
+  el.querySelector('.thumb').addEventListener('click',e=>{ e.stopPropagation(); openLb(it); });
+  const head=el.querySelector('.head');
+  head.addEventListener('click',()=>toggleCard(it.id));
+  head.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggleCard(it.id);} });
+  ui.els.set(it.id, el); refreshCard(it.id); return el;
+}
+function refreshCard(id){
+  const it=byId.get(id), st=state[id], el=ui.els.get(id); if(!el) return;
+  el.classList.toggle('done', st.done); el.classList.toggle('paused', st.status==='paused'); el.classList.toggle('cancelled', st.status==='cancelled');
+  el.querySelector('.n-ar').textContent=st.name_ar||it.ar; el.querySelector('.n-en').textContent=st.name_en||it.en;
+  const dp=el.querySelector('.desc-prev'); dp.textContent=st.desc_ar.trim(); dp.style.display=st.desc_ar.trim()?'':'none';
+  let b='';
+  if(st.done) b+='<span class="badge b-done">مكتمل ✓</span>';
+  if(st.status==='paused') b+='<span class="badge b-paused">موقوف مؤقتاً'+(st.pause_reason?' · '+REASONS.find(r=>r[0]===st.pause_reason)[1]:'')+'</span>';
+  if(st.status==='cancelled') b+='<span class="badge b-cancel">ملغي</span>';
+  if(nameCorrected(id)) b+='<span class="badge b-soft">اسم مصحّح</span>';
+  if(st.availability_note.trim()) b+='<span class="badge b-soft">'+esc(st.availability_note.trim())+'</span>';
+  el.querySelector('.badges').innerHTML=b;
+}
+function nameCorrected(id){ const it=byId.get(id), st=state[id]; return (st.name_ar.trim()||it.ar)!==it.ar || (st.name_en.trim()||it.en)!==it.en; }
+
+function toggleCard(id, force){
+  const el=ui.els.get(id); const open = force!==undefined?force:!el.classList.contains('open');
+  if(open){ if(!el.querySelector('.body')) el.appendChild(buildBody(byId.get(id))); ui.open.add(id); }
+  else { ui.open.delete(id); }
+  el.classList.toggle('open', open); el.querySelector('.head').setAttribute('aria-expanded', open);
+  const body=el.querySelector('.body'); if(body) body.hidden=!open;
+  if(!open) applyFilter();
+}
+
+function buildBody(it){
+  const id=it.id, st=state[id];
+  const b=document.createElement('div'); b.className='body';
+  b.innerHTML=
+   '<button type="button" class="linkbtn js-nf">✎ تصحيح الاسم</button>'+
+   '<div class="namefields" hidden>'+
+     '<label class="fld"><span class="lbl">الاسم بالعربي</span><input class="inp js-nar" type="text"></label>'+
+     '<label class="fld"><span class="lbl">الاسم بالإنجليزي</span><input class="inp js-nen" type="text" dir="ltr" autocapitalize="words"></label>'+
+     '<button type="button" class="linkbtn js-nreset">↺ إرجاع الاسم الأصلي</button>'+
+   '</div>'+
+   '<label class="fld"><span class="lbl">الوصف بالعربي <small>المكونات وطريقة التقديم</small></span>'+
+     '<textarea class="js-dar" rows="3" placeholder="مثال: خبز محمص مع بيض وجبن وطماطم"></textarea></label>'+
+   '<div class="fld"><div class="lbl"><span>الوصف بالإنجليزي</span><button type="button" class="btn-sm js-tr">ترجم</button></div>'+
+     '<textarea class="js-den" rows="3" dir="ltr" placeholder="English description (auto)"></textarea><div class="hint js-hint"></div></div>'+
+   '<div class="fld"><div class="lbl">الحالة</div><div class="seg">'+STATUSES.map(([k,l])=>'<button type="button" data-v="'+k+'">'+l+'</button>').join('')+'</div>'+
+     '<div class="pausebox" hidden><div class="fld"><div class="lbl">سبب الإيقاف</div><div class="reasons">'+
+       REASONS.map(([k,l])=>'<button type="button" class="reason" data-r="'+k+'">'+l+'</button>').join('')+'</div></div></div></div>'+
+   '<label class="fld"><span class="lbl">ملاحظة توفر <small>اختياري</small></span>'+
+     '<input class="inp js-note" type="text" placeholder="مثال: الجمعة فقط، يرجع في الشتاء"></label>'+
+   '<button type="button" class="btn-done js-done"></button>';
+  const q=s=>b.querySelector(s);
+  q('.js-nar').value=st.name_ar; q('.js-nen').value=st.name_en; q('.js-dar').value=st.desc_ar; q('.js-den').value=st.desc_en; q('.js-note').value=st.availability_note;
+  if(nameCorrected(id)) q('.namefields').hidden=false;
+  q('.js-nf').addEventListener('click',()=>{ const nf=q('.namefields'); nf.hidden=!nf.hidden; if(!nf.hidden) q('.js-nar').focus(); });
+  q('.js-nar').addEventListener('input',e=>{ st.name_ar=e.target.value; save(); refreshCard(id); });
+  q('.js-nen').addEventListener('input',e=>{ st.name_en=e.target.value; save(); refreshCard(id); });
+  q('.js-nreset').addEventListener('click',()=>{ st.name_ar=it.ar; st.name_en=it.en; q('.js-nar').value=it.ar; q('.js-nen').value=it.en; save(); refreshCard(id); });
+  q('.js-dar').addEventListener('input',e=>{
+    st.desc_ar=e.target.value; save(); refreshCard(id);
+    clearTimeout(ui.timers[id]);
+    if(!st.desc_ar.trim()){ if(st.desc_en_source==='machine'){ st.desc_en=''; st.desc_en_source=null; q('.js-den').value=''; save(); } ui.tseq[id]=(ui.tseq[id]||0)+1; setHint(id); return; }
+    if(st.desc_en_source!=='manual') ui.timers[id]=setTimeout(()=>doTranslate(id,false),1200);
+  });
+  q('.js-den').addEventListener('input',e=>{
+    st.desc_en=e.target.value; st.desc_en_source=st.desc_en.trim()?'manual':null; ui.tseq[id]=(ui.tseq[id]||0)+1; clearTimeout(ui.timers[id]); save(); setHint(id);
+  });
+  q('.js-tr').addEventListener('click',()=>{ if(!st.desc_ar.trim()){ toast('اكتب الوصف بالعربي أول'); q('.js-dar').focus(); return; } clearTimeout(ui.timers[id]); doTranslate(id,true); });
+  q('.seg').addEventListener('click',e=>{ const x=e.target.closest('button'); if(!x) return; setStatus(id,x.dataset.v); });
+  q('.reasons').addEventListener('click',e=>{ const x=e.target.closest('.reason'); if(!x) return; st.pause_reason = st.pause_reason===x.dataset.r?null:x.dataset.r; save(); syncBody(id); refreshCard(id); });
+  q('.js-note').addEventListener('input',e=>{ st.availability_note=e.target.value; save(); refreshCard(id); });
+  q('.js-done').addEventListener('click',()=>onDone(id));
+  ui.els.get(id)._body=b; setTimeout(()=>{syncBody(id); setHint(id);},0);
+  return b;
+}
+function syncBody(id){
+  const st=state[id], el=ui.els.get(id), b=el&&el.querySelector('.body'); if(!b) return;
+  b.querySelectorAll('.seg button').forEach(x=>x.classList.toggle('on',x.dataset.v===st.status));
+  b.querySelector('.pausebox').hidden = st.status!=='paused';
+  b.querySelectorAll('.reason').forEach(x=>x.classList.toggle('on',x.dataset.r===st.pause_reason));
+  const d=b.querySelector('.js-done'); d.classList.toggle('is-done',st.done); d.textContent = st.done?'مكتمل ✓ (اضغط للتراجع)':'تم ✓';
+}
+function setHint(id, mode){
+  const st=state[id], el=ui.els.get(id), h=el&&el.querySelector('.js-hint'); if(!h) return;
+  h.className='hint js-hint';
+  if(mode==='busy'){ h.classList.add('busy'); h.textContent='جاري الترجمة…'; return; }
+  if(mode==='err'){ h.classList.add('err'); h.textContent=MSG_TR_FAIL; return; }
+  if(st.desc_en_source==='machine'){ h.classList.add('machine'); h.textContent='ترجمة آلية — يمكنك تعديلها'; }
+  else if(st.desc_en_source==='manual'){ h.textContent='معدّلة يدوياً — ما راح تتغير تلقائياً. اضغط «ترجم» لإعادة الترجمة.'; }
+  else h.textContent='تنكتب تلقائياً من الوصف العربي. (اختياري)';
+}
+function setStatus(id, v){
+  const st=state[id]; st.status=v; if(v!=='paused') st.pause_reason=null;
+  save(); syncBody(id); refreshCard(id); updateCounts();
+}
+function onDone(id){
+  const st=state[id];
+  if(st.done){ st.done=false; save(); syncBody(id); refreshCard(id); updateCounts(); return; }
+  if(st.status==='active' && !st.desc_ar.trim()){
+    modal('ما في وصف', '<p>ما كتبت وصف بالعربي لهذا الصنف. تبغى تعتبره مكتمل كذا؟</p>', [
+      {label:'✍️ أكتب الوصف', cls:'dark', onClick:()=>{ const t=ui.els.get(id).querySelector('.js-dar'); t&&t.focus(); }},
+      {label:'نعم، مكتمل بدون وصف', onClick:()=>markDone(id)} ]);
+    return;
+  }
+  markDone(id);
+}
+function markDone(id){
+  const st=state[id]; st.done=true; save(); syncBody(id); refreshCard(id); updateCounts();
+  toast('تم ✓ '+(st.name_ar||byId.get(id).ar));
+  toggleCard(id,false);
+  // open next unfinished item that is visible under current filter
+  const idx=items.findIndex(x=>x.id===id);
+  const order=items.slice(idx+1).concat(items.slice(0,idx));
+  const next=order.find(x=>!state[x.id].done && visible(x));
+  if(next){ toggleCard(next.id,true); const el=ui.els.get(next.id); setTimeout(()=>{ const y=el.getBoundingClientRect().top+window.scrollY-headerH()-10; window.scrollTo({top:y,behavior:'smooth'}); },60); }
+  else if(countDone()===TOTAL) modal('ممتاز! 🎉','<p>خلصت كل الأصناف. اضغط «إرسال المنيو» تحت.</p>');
+}
+
+/* ---------- translation (MyMemory, no key) ---------- */
+const tCache=new Map();
+function chunks(text,max){
+  const parts=(text.match(/[^.!?؟،,؛;\n]+[.!?؟،,؛;\n]*/g)||[text]).map(x=>x.trim()).filter(Boolean); const out=[]; let cur='';
+  parts.forEach(p=>{ if((cur+' '+p).trim().length<=max){ cur=(cur+' '+p).trim(); } else { if(cur) out.push(cur);
+      while(p.length>max){ let cut=p.lastIndexOf(' ',max); if(cut<40) cut=max; out.push(p.slice(0,cut)); p=p.slice(cut).trim(); } cur=p; } });
+  if(cur) out.push(cur); return out;
+}
+function decodeEnt(s){ const t=document.createElement('textarea'); t.innerHTML=s; return t.value; }
+async function translateText(ar){
+  ar=ar.trim(); if(!ar) return '';
+  if(tCache.has(ar)) return tCache.get(ar);
+  if(navigator.onLine===false) throw new Error('offline');
+  const out=[];
+  for(const ch of chunks(ar,200)){
+    const ctrl=new AbortController(); const tm=setTimeout(()=>ctrl.abort(),12000);
+    try{
+      const r=await fetch('https://api.mymemory.translated.net/get?q='+encodeURIComponent(ch)+'&langpair=ar|en',{signal:ctrl.signal});
+      if(!r.ok) throw new Error('http '+r.status);
+      const j=await r.json(); const txt=j&&j.responseData&&j.responseData.translatedText;
+      if(String(j.responseStatus)!=='200' || !txt || /MYMEMORY WARNING|QUERY LENGTH LIMIT|INVALID LANGUAGE|PLEASE SELECT/i.test(txt)) throw new Error('api');
+      out.push(decodeEnt(txt).trim());
+    } finally { clearTimeout(tm); }
+  }
+  const res=out.join(' '); tCache.set(ar,res); return res;
+}
+async function doTranslate(id, force){
+  const st=state[id]; if(!force && st.desc_en_source==='manual') return;
+  const src=st.desc_ar; if(!src.trim()) return;
+  const seq=(ui.tseq[id]=(ui.tseq[id]||0)+1);
+  const el=ui.els.get(id), btn=el&&el.querySelector('.js-tr'); if(btn) btn.disabled=true;
+  setHint(id,'busy');
+  try{
+    const en=await translateText(src);
+    if(ui.tseq[id]!==seq) return;
+    if(!force && st.desc_en_source==='manual') return;
+    st.desc_en=en; st.desc_en_source='machine'; const t=el&&el.querySelector('.js-den'); if(t) t.value=en; save(); setHint(id);
+  }catch(e){ if(ui.tseq[id]===seq) setHint(id,'err'); }
+  finally{ if(btn) btn.disabled=false; }
+}
+
+/* ---------- filter / counts ---------- */
+function visible(it){
+  const st=state[it.id];
+  const f=ui.filter;
+  const okF = f==='all' || (f==='todo'&&!st.done) || (f==='done'&&st.done) || (f==='cancelled'&&st.status==='cancelled') || (f==='paused'&&st.status==='paused');
+  if(!okF) return false;
+  if(!ui.q) return true;
+  const hay=norm([st.name_ar,st.name_en,it.ar,it.en,cats[it.c].ar,cats[it.c].en,st.desc_ar].join(' '));
+  return ui.q.split(' ').every(w=>hay.includes(w));
+}
+function applyFilter(){
+  let any=false;
+  cats.forEach((c,ci)=>{
+    let n=0; items.forEach(it=>{ if(it.c!==ci) return; const v=visible(it)||ui.open.has(it.id); ui.els.get(it.id).classList.toggle('hidden',!v); if(v) n++; });
+    const sec=document.getElementById('cat-'+ci); sec.classList.toggle('hidden',n===0); if(n) any=true;
+    const chip=document.querySelector('.chip[data-i="'+ci+'"]'); if(chip) chip.style.opacity=n?'':'.45';
+  });
+  $('#empty').style.display=any?'none':'block';
+}
+function closeNonMatching(){ [...ui.open].forEach(id=>{ if(!visible(byId.get(id))){ ui.open.delete(id); const el=ui.els.get(id); el.classList.remove('open'); el.querySelector('.head').setAttribute('aria-expanded',false); const bd=el.querySelector('.body'); if(bd) bd.hidden=true; } }); }
+function countDone(){ return items.filter(it=>state[it.id].done).length; }
+function counts(){
+  const c={all:TOTAL,todo:0,done:0,cancelled:0,paused:0,active:0,desc:0};
+  items.forEach(it=>{ const s=state[it.id]; if(s.done)c.done++; else c.todo++; if(s.status==='cancelled')c.cancelled++; else if(s.status==='paused')c.paused++; else c.active++; if(s.desc_ar.trim())c.desc++; });
+  return c;
+}
+function updateCounts(){
+  const c=counts();
+  $('#progTxt').textContent='تم '+c.done+' من '+TOTAL; $('#barFill').style.width=(c.done/TOTAL*100)+'%';
+  document.querySelectorAll('.tab b').forEach(b=>b.textContent=c[b.dataset.c]);
+  $('#bsum').innerHTML='<b>'+c.done+'</b> مكتمل · باقي <b>'+c.todo+'</b>';
+  cats.forEach((cat,ci)=>{ const its=items.filter(it=>it.c===ci); const d=its.filter(it=>state[it.id].done).length;
+    const el=document.querySelector('#cat-'+ci+' .cc'); if(el) el.textContent='('+d+'/'+its.length+')'; });
+  document.documentElement.style.setProperty('--hdr', headerH()+'px');
+}
+
+/* ---------- scroll spy for chips ---------- */
+let spyRaf=0, activeChip=-1;
+window.addEventListener('scroll',()=>{ if(spyRaf) return; spyRaf=requestAnimationFrame(()=>{ spyRaf=0;
+  const top=headerH()+20; let cur=0;
+  cats.forEach((c,ci)=>{ const s=document.getElementById('cat-'+ci); if(!s.classList.contains('hidden') && s.getBoundingClientRect().top<=top) cur=ci; });
+  if(cur!==activeChip){ activeChip=cur; document.querySelectorAll('.chip').forEach(ch=>ch.classList.toggle('on',+ch.dataset.i===cur));
+    const ch=document.querySelector('.chip[data-i="'+cur+'"]'); if(ch){ const box=$('#chips'); const r=ch.getBoundingClientRect(), br=box.getBoundingClientRect();
+      if(r.left<br.left||r.right>br.right) box.scrollBy({left:(r.left+r.width/2)-(br.left+br.width/2),behavior:'smooth'}); } }
+});},{passive:true});
+
+/* ---------- export ---------- */
+function buildExport(){
+  const out=items.map(it=>{ const st=state[it.id], c=cats[it.c];
+    const nar=st.name_ar.trim()||it.ar, nen=st.name_en.trim()||it.en, den=st.desc_en.trim();
+    return { source_item_id:it.id, category_en:c.en, category_ar:c.ar, category_sort:c.sort, item_sort:it.s,
+      name_en:nen, name_ar:nar, name_corrected:(nar!==it.ar||nen!==it.en), original_name_en:it.en, original_name_ar:it.ar,
+      price:it.p, image_url:it.img||null, description_ar:st.desc_ar.trim()||null, description_en:den||null,
+      description_en_source: den?(st.desc_en_source||'manual'):null, status:st.status,
+      pause_reason: st.status==='paused'?(st.pause_reason||null):null, availability_note:st.availability_note.trim()||null, done:!!st.done }; });
+  const c=counts();
+  return { restaurant:'Kazu', source:'OrderCaptain + manager review', exported_at:isoLocal(), currency:'OMR',
+    notes_for_claude:'Arabic descriptions (description_ar) are authoritative; they were written by the Kazu manager. English descriptions were machine-translated (MyMemory) unless description_en_source is "manual", and should be polished before use; if description_en is null, translate from description_ar. Items with status "cancelled" must never be offered or recommended by the agent. Items with status "paused" must not be offered while paused; if a customer asks for one, the agent should say it is currently unavailable (use availability_note / pause_reason if helpful). Never claim anything about an item (ingredients, allergens, spiciness, portion size, etc.) that is not stated in its description. Prices are strings in OMR with 3 decimals, exactly as published on OrderCaptain. Items with done=false were not reviewed by the manager yet. If name_corrected is true, use name_en/name_ar (the manager\'s correction) instead of the original names.',
+    summary:{ total:TOTAL, done:c.done, active:c.active, cancelled:c.cancelled, paused:c.paused, with_description:c.desc },
+    items:out };
+}
+function download(text, name, type){
+  const blob=new Blob([text],{type:type||'application/json'}); const url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url; a.download=name; a.rel='noopener'; document.body.appendChild(a); a.click();
+  setTimeout(()=>{ URL.revokeObjectURL(url); a.remove(); },4000);
+}
+function sendFlow(){
+  const c=counts();
+  if(c.todo>0){
+    modal('باقي '+c.todo+' صنف ما اكتمل', '<p>خلصت <b>'+c.done+'</b> من '+TOTAL+'. تقدر ترسل الحين وتكمل الباقي بعدين، أو ترجع تكمل.</p>', [
+      {label:'↩︎ رجوع أكمل', cls:'dark', onClick:()=>{ if(ui.filter!=='todo'){ document.querySelector('.tab[data-f="todo"]').click(); } }},
+      {label:'إرسال على كل حال', cls:'pri', onClick:doSend} ]);
+  } else doSend();
+}
+async function doSend(){
+  save();
+  const data=buildExport(); const json=JSON.stringify(data,null,2); const name='kazu_menu_final_'+ymd()+'.json';
+  window.__lastExport=data;
+  let shared=false, aborted=false;
+  if(navigator.share && navigator.canShare){
+    const cands=[new File([json],name,{type:'application/json'}), new File([json],name.replace(/\.json$/,'.txt'),{type:'text/plain'})];
+    for(const f of cands){
+      let ok=false; try{ ok=navigator.canShare({files:[f]}); }catch(e){}
+      if(!ok) continue;
+      try{ await navigator.share({files:[f], title:'منيو كازو', text:'منيو كازو بعد المراجعة ('+data.summary.done+'/'+TOTAL+')'}); shared=true; }
+      catch(e){ if(e && e.name==='AbortError') aborted=true; }
+      break;
+    }
+  }
+  if(shared){ modal('تم الإرسال ✓','<p>شكراً! وصل الملف. إذا عدلت شي بعدين، اضغط «إرسال المنيو» مرة ثانية.</p>',[{label:'تنزيل نسخة على الجهاز',onClick:()=>download(json,name)},{label:'تمام',cls:'pri'}]); return; }
+  if(aborted){ modal('ما تم الإرسال','<p>ألغيت نافذة المشاركة. تبغى تحاول مرة ثانية؟</p>',[{label:'حاول مرة ثانية',cls:'pri',onClick:doSend},{label:'تنزيل الملف بدل ذلك',onClick:()=>{download(json,name); showSendHelp(name,json);}},{label:'رجوع'}]); return; }
+  download(json,name); showSendHelp(name,json);
+}
+function showSendHelp(name,json){
+  modal('تم تنزيل ملف المنيو 📄',
+    '<p>اسم الملف: <b dir="ltr">'+esc(name)+'</b></p><p>أرسله على واتساب كذا:</p><ol>'+
+    '<li>افتح <b>واتساب</b> وادخل المحادثة.</li><li>اضغط <b>📎</b> (أو <b>+</b> في الآيفون) ثم <b>مستند</b>.</li>'+
+    '<li>اختر الملف من <b>التنزيلات</b> (في الآيفون: تطبيق <b>الملفات</b> ← التنزيلات).</li><li>اضغط <b>إرسال</b>.</li></ol>',
+    [{label:'تنزيل الملف مرة ثانية',onClick:()=>{download(json,name); showSendHelp(name,json);},keepOpen:false},{label:'تمام',cls:'pri'}]);
+}
+
+/* ---------- backup / restore ---------- */
+$('#btnBackup').addEventListener('click',()=>{ save(); const d=new Date();
+  download(JSON.stringify(snapshot(),null,1),'kazu_menu_progress_'+ymd(d)+'_'+pad(d.getHours())+pad(d.getMinutes())+'.json');
+  toast('تم تنزيل النسخة الاحتياطية 💾'); });
+$('#btnRestore').addEventListener('click',()=>$('#fileIn').click());
+$('#fileIn').addEventListener('change',e=>{
+  const f=e.target.files&&e.target.files[0]; e.target.value=''; if(!f) return;
+  const r=new FileReader();
+  r.onload=()=>{ let j; try{ j=JSON.parse(r.result); }catch(err){ modal('ملف غير صالح','<p>هذا الملف مو نسخة احتياطية من المنيو.</p>'); return; }
+    const m=parseBackup(j); const n=Object.keys(m).length;
+    if(!n){ modal('ملف غير صالح','<p>ما لقيت أصناف كازو في هذا الملف.</p>'); return; }
+    modal('استرجاع النسخة؟','<p>لقيت <b>'+n+'</b> صنف في الملف. الاسترجاع راح يستبدل الشغل الحالي على هذا الجهاز.</p>',[
+      {label:'نعم، استرجع',cls:'pri',onClick:()=>{ items.forEach(it=>{ state[it.id]=sanitize(it,m[it.id]||state[it.id]); }); ui.open.clear(); buildList(); applyFilter(); updateCounts(); save(); toast('تم الاسترجاع ✓'); }},
+      {label:'إلغاء'} ]); };
+  r.readAsText(f);
+});
+function parseBackup(j){
+  const m={}; if(!j||typeof j!=='object') return m;
+  if(j.items && !Array.isArray(j.items)){ Object.keys(j.items).forEach(k=>{ if(byId.has(+k)) m[+k]=j.items[k]; }); return m; }
+  if(Array.isArray(j.items)){ j.items.forEach(x=>{ if(!x||!byId.has(+x.source_item_id)) return;
+      m[+x.source_item_id]={ name_ar:x.name_ar, name_en:x.name_en, desc_ar:x.description_ar||'', desc_en:x.description_en||'', desc_en_source:x.description_en_source,
+        status:x.status, pause_reason:x.pause_reason, availability_note:x.availability_note||'', done:x.done }; }); }
+  return m;
+}
+
+/* ---------- search, keyboard ---------- */
+let qT; $('#q').addEventListener('input',e=>{ clearTimeout(qT); qT=setTimeout(()=>{ ui.q=norm(e.target.value); closeNonMatching(); applyFilter(); },150); });
+document.addEventListener('focusin',e=>{ if(e.target.matches('textarea,input[type=text],input[type=search]')) document.body.classList.add('typing'); });
+document.addEventListener('focusout',()=>setTimeout(()=>{ if(!document.activeElement||!document.activeElement.matches('textarea,input[type=text],input[type=search]')) document.body.classList.remove('typing'); },50));
+$('#btnSend').addEventListener('click',sendFlow);
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeModal(); $('#lb').classList.remove('show'); } });
+window.addEventListener('resize',()=>document.documentElement.style.setProperty('--hdr', headerH()+'px'));
+
+/* ---------- init ---------- */
+const restored=load();
+try{ localStorage.setItem(STORE_KEY+'_probe','1'); localStorage.removeItem(STORE_KEY+'_probe'); }catch(e){ ui.storeOk=false; $('#warnStore').style.display='block'; setSaved('الحفظ التلقائي غير متاح',true); }
+buildTabs(); buildChips(); buildList(); applyFilter(); updateCounts();
+if(restored) toast('رجعنا شغلك المحفوظ ✓');
+window.__kazu={state,buildExport,items,cats};
+})();
+</script>
+</body>
+</html>
